@@ -37,7 +37,7 @@ const transporter=await nodemailer.createTransport({
     const mailOption=
         {
         from:'jai12vj@gmail.com',
-        to:req.body.email,
+        to:'jayasurya12vj@gmail.com',
         subject:"Hi this is verification process!!!",
         html:`
         <div>
