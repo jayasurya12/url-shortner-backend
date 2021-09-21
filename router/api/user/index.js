@@ -28,7 +28,7 @@ router.post('/userSignup',async (req,res)=>{
 ///////////////////////////////////////////////------------token-------------------------///////////////////////
         const token=await jwt.sign({userId:data._id},process.env.SECRETE_KEY)
 ///////////////////////-token-------////////////////////////////////////////////////////////////////////////////       
-    const transporter= nodemailer.createTransport({
+    const transporter=await nodemailer.createTransport({
         host:"smtp.gmail.com",
         port:587,
         service:'gmail',
@@ -42,7 +42,7 @@ router.post('/userSignup',async (req,res)=>{
             rejectUnauthorized: false
         }
     })
-    const mailOption=await transporter.sendMail({
+    const mailOption=transporter.sendMail({
         from:process.env.EMAIL_ID,
         to:user.email,
         subject:"Hi this is verification process!!!",
@@ -52,14 +52,8 @@ router.post('/userSignup',async (req,res)=>{
             <h3>Hi this is url-shortner account created  verify link is below</h3>
             <a href='https://objective-hypatia-83dede.netlify.app/verify/${token}'>click here</a>
         </div>`        
-        },(err,data)=>{
-        if(err){
-            return res.status(400).json(err)
-        }else{
-            console.log(data);
-            return res.status(200).json('Account created successfully verification message send your email')
-        }
-    })
+        })
+        res.status(200).json('Account created successfully verification message send your email')
     // transporter.sendMail(mailOption,(err,data)=>{
     //     if(err){
     //         res.status(400).json(err)
