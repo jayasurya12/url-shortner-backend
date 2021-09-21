@@ -10,12 +10,12 @@ router.post('/userSignup',async (req,res)=>{
     try {
         const emailAddress=req.body.email;
         const emailVerify=await userModel.findOne({email:emailAddress})
-        if(emailVerify){
-            if(!emailVerify.verified){
-                return res.status(400).json("This Email Address Account has been already created but not Verified go and Check")
-            }
-            return res.status(400).json('This Email Address already created')
-        }
+        // if(emailVerify){
+        //     if(!emailVerify.verified){
+        //         return res.status(400).json("This Email Address Account has been already created but not Verified go and Check")
+        //     }
+        //     return res.status(400).json('This Email Address already created')
+        // }
         const pass= await bcrypt.hash(req.body.newPassword,10)
         req.body.newPassword=pass;
         const user=await userModel({
@@ -52,10 +52,12 @@ router.post('/userSignup',async (req,res)=>{
             <h3>Hi this is url-shortner account created  verify link is below</h3>
             <a href='https://objective-hypatia-83dede.netlify.app/verify/${token}'>click here</a>
         </div>`        
-    })  
-    console.log(mailOption);
+    })
     res.status(200).json('Account created successfully verification message send your email') 
 } catch (error) {
+    if(error.code === 11000){
+        return res.status(400).json("This email address already exit")
+    }
     res.json(error)
 }
 })
