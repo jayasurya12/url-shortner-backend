@@ -41,7 +41,7 @@ router.post('/userSignup',async (req,res)=>{
                 rejectUnauthorized: false
             }
         })
-        const send=await emailVerification.sendMail({
+        const send=emailVerification.sendMail({
             form:process.env.EMAIL_ID,
             to:user.email,
             subject:"Hi this is verification process!!!",
@@ -50,11 +50,13 @@ router.post('/userSignup',async (req,res)=>{
                 <a href='https://url-shortner-3.herokuapp.com/verify/${token}'>click here</a>
             </div>`        
         })
-        if(!send){
+        if(send){
             
-            return res.status(400).json("Something error")
+            return res.status(200).json("Account Successfully Created verification Message Send Your email")
+        }else{
+            return res.status(400).json("Email error")
         }
-        res.status(200).json("Account Successfully Created verification Message Send Your email")
+        
     } catch (error) {
         res.json(error)
     }
