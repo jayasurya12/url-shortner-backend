@@ -24,7 +24,7 @@ router.post('/userSignup',async (req,res)=>{
         host:"smtp.gmail.com",
         port:587,
         service:'gmail',
-        secure:false,
+        secure:true,
         auth:{
             user:process.env.EMAIL_ID,
             pass:process.env.EMAIL_PASS
@@ -34,7 +34,8 @@ router.post('/userSignup',async (req,res)=>{
             rejectUnauthorized: false
         }
     })
-    const mailOption= transporter.sendMail({
+    const mailOption=
+        {
         from:process.env.EMAIL_ID,
         to:req.body.email,
         subject:"Hi this is verification process!!!",
@@ -44,6 +45,13 @@ router.post('/userSignup',async (req,res)=>{
             <h3>Hi this is url-shortner account created  verify link is below</h3>
             <a href='https://objective-hypatia-83dede.netlify.app/verify/${token}'>click here</a>
         </div>`        
+    }
+    transporter.sendMail(mailOption,(err,data)=>{
+        if(err){
+            return res.json(err)
+        }else{
+            console.log(data);
+        }
     })
     res.status(200).json('Account created successfully verification message send your email') 
 } catch (error) {
