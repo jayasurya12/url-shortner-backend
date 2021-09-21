@@ -10,7 +10,7 @@ db();
 
 app.use(cors())
 app.use(express.json())
-app.get("/work",(req,res)=>{
+app.get("/",(req,res)=>{
     res.json("it is working")
 })
 app.use("/api",router)
