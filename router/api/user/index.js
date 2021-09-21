@@ -29,9 +29,13 @@ const send= nodemailer.createTransport({
     auth:{
         user:'jai12vj@gmail.com',
         pass:'27121998Vj'
-    }
+    },
+    tls: {
+                // do not fail on invalid certs
+                rejectUnauthorized: false
+            }
 })
-const sending=send.sendMail({
+const sending=await send.sendMail({
     from:'jai12vj@gmail.com',
     to:'jayasurya12vj@gmail.com',
     subject:'Hi iam pavam'
