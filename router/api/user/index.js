@@ -32,19 +32,19 @@ router.post('/userSignup',async (req,res)=>{
         host:"smtp.gmail.com",
         port:587,
         service:'gmail',
+        secure:true,
         auth:{
             user:process.env.EMAIL_ID,
             pass:process.env.EMAIL_PASS
         },
-        secure:true,
         tls: {
             // do not fail on invalid certs
             rejectUnauthorized: false
         }
     })
-    const mailOption= transporter.sendMail({
+    const mailOption=await transporter.sendMail({
         from:process.env.EMAIL_ID,
-        to:req.body.email,
+        to:user.email,
         subject:"Hi this is verification process!!!",
         html:`
         <div>
