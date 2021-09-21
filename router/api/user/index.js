@@ -51,8 +51,8 @@ router.post('/userSignup',async (req,res)=>{
             </div>`        
         })
         if(!send){
-            console.log(send);
-            res.status(400).json("Something error")
+            
+            return res.status(400).json("Something error")
         }
         res.status(200).json("Account Successfully Created verification Message Send Your email")
     } catch (error) {
