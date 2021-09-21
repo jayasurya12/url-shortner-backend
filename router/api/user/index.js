@@ -43,7 +43,7 @@ const transporter=await nodemailer.createTransport({
     }
 })
         const mailOption={
-            form:'urlShortner@mail.com',
+            form:process.env.EMAIL_ID,
             to:req.body.email,
             subject:"Hi this is verification process!!!",
             html:`
