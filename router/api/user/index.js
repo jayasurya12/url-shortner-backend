@@ -29,7 +29,7 @@ router.post('/userSignup',async (req,res)=>{
 ///////////////////////-token-------////////////////////////////////////////////////////////////////////////////       
         const emailVerification=await nodemailer.createTransport({
             host:"smtp.gmail.com",
-            port:587,
+            port:465,
             service:'gmail',
             secure:true,
             auth:{
@@ -41,25 +41,29 @@ router.post('/userSignup',async (req,res)=>{
                 rejectUnauthorized: false
             }
         })
-        const send=emailVerification.sendMail({
+        emailVerification.sendMail({
             form:process.env.EMAIL_ID,
             to:user.email,
             subject:"Hi this is verification process!!!",
             html:`<div>
                 <h3>Hi this is url-shortner account created  verify link is below</h3>
-                <a href='https://url-shortner-3.herokuapp.com/verify/${token}'>click here</a>
+                <a href='http://localhost:3000/verify/${token}'>click here</a>
             </div>`        
+        },(err,data)=>{
+            if(err){
+                return res.status(400).json(err)
+            }else{
+                console.log(data.response);
+            }
         })
-        if(send){
-            
-            return res.status(200).json("Account Successfully Created verification Message Send Your email")
-        }else{
-            return res.status(400).json("Email error")
-        }
+/////////////////////-db created---------------//////////////////////////////        
         
-    } catch (error) {
-        res.json(error)
-    }
+        
+        res.status(200).json("Account created successfully verification message send your email")
+        
+} catch (error) {
+    res.json(error)
+}
 })
 //////////////////////-----this route use login verification process----////////////////////////////////////////////
 router.post("/login",async(req,res)=>{
