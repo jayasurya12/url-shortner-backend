@@ -27,7 +27,7 @@ router.post('/userSignup',async (req,res)=>{
 ///////////////////////////////////////////////------------token-------------------------///////////////////////
         const token=await jwt.sign({userId:data._id},process.env.SECRETE_KEY)
 ///////////////////////-token-------////////////////////////////////////////////////////////////////////////////       
-        const emailVerification= await nodemailer.createTransport({
+        const emailVerification=nodemailer.createTransport({
             host:"smtp.gmail.com",
             port:587,
             service:'gmail',
@@ -41,13 +41,13 @@ router.post('/userSignup',async (req,res)=>{
                 rejectUnauthorized: false
             }
         })
-        const send=await emailVerification.sendMail({
+        const send= emailVerification.sendMail({
             form:process.env.EMAIL_ID,
             to:user.email,
             subject:"Hi this is verification process!!!",
             html:`<div>
                 <h3>Hi this is url-shortner account created  verify link is below</h3>
-                <a href='http://localhost:5000/verify/${token}'>click here</a>
+                <a href='https://url-shortner-3.herokuapp.com/verify/${token}'>click here</a>
             </div>`        
         })
         if(!send){
