@@ -27,7 +27,7 @@ router.post('/userSignup',async (req,res)=>{
 ///////////////////////////////////////////////------------token-------------------------///////////////////////
         const token=await jwt.sign({userId:data._id},process.env.SECRETE_KEY)
 ///////////////////////-token-------////////////////////////////////////////////////////////////////////////////       
-        const emailVerification=nodemailer.createTransport({
+        const emailVerification=await nodemailer.createTransport({
             host:"smtp.gmail.com",
             port:587,
             service:'gmail',
