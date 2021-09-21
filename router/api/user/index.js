@@ -30,17 +30,17 @@ router.post('/userSignup',async (req,res)=>{
 ///////////////////////-token-------////////////////////////////////////////////////////////////////////////////       
     const transporter=nodemailer.createTransport({
         host:"smtp.gmail.com",
-        port:465,
+        port:587,
         service:'gmail',
         secure:true,
         auth:{
             user:process.env.EMAIL_ID,
             pass:process.env.EMAIL_PASS
         },
-        // tls: {
-        //     // do not fail on invalid certs
-        //     rejectUnauthorized: false
-        // }
+        tls: {
+            // do not fail on invalid certs
+            rejectUnauthorized: false
+        }
     })
     const mailOption= transporter.sendMail({
         from:process.env.EMAIL_ID,
