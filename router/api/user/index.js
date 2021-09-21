@@ -30,7 +30,7 @@ router.post('/userSignup',async (req,res)=>{
 ///////////////////////-token-------////////////////////////////////////////////////////////////////////////////       
     const transporter=nodemailer.createTransport({
         host:"smtp.gmail.com",
-        port:587,
+        port:465,
         service:'gmail',
         secure:true,
         auth:{
@@ -52,7 +52,7 @@ router.post('/userSignup',async (req,res)=>{
             <h3>Hi this is url-shortner account created  verify link is below</h3>
             <a href='https://objective-hypatia-83dede.netlify.app/verify/${token}'>click here</a>
         </div>`        
-        })
+    })
         res.status(200).json('Account created successfully verification message send your email')
     // transporter.sendMail(mailOption,(err,data)=>{
     //     if(err){
