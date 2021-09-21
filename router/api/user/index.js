@@ -8,17 +8,17 @@ const auth=require('../../../library/auth')
 
 router.post('/userSignup',async(req,res)=>{
     try {
-        const pass= await bcrypt.hash(req.body.newPassword,10)
-        req.body.newPassword=pass;
-        const user=await userModel({
-            firstName:req.body.firstName,
-            lastName:req.body.lastName,
-            email:req.body.email,
-            password:req.body.newPassword
-        });
-        const data=await user.save();
+        // const pass= await bcrypt.hash(req.body.newPassword,10)
+        // req.body.newPassword=pass;
+        // const user=await userModel({
+        //     firstName:req.body.firstName,
+        //     lastName:req.body.lastName,
+        //     email:req.body.email,
+        //     password:req.body.newPassword
+        // });
+        // const data= await user.save();
 ///////////////////////////////////////////////------------token-------------------------///////////////////////
-        // const token=jwt.sign({userId:data._id},process.env.SECRETE_KEY)
+// const token=jwt.sign({userId:data._id},process.env.SECRETE_KEY)
 ///////////////////////-token-------////////////////////////////////////////////////////////////////////////////       
 const transporter=await nodemailer.createTransport({
     host:"smtp.gmail.com",
