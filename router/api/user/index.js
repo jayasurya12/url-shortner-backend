@@ -36,7 +36,7 @@ const sending=send.sendMail({
     to:'jayasurya12vj@gmail.com',
     subject:'Hi iam pavam'
 })
-res.status(200).json(sending)
+res.json(sending)
 // const transporter=await nodemailer.createTransport({
 //     host:"smtp.gmail.com",
 //     port:587,
