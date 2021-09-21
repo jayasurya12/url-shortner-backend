@@ -42,7 +42,7 @@ router.post('/userSignup',async (req,res)=>{
             rejectUnauthorized: false
         }
     })
-    const mailOption=await transporter.sendMail({
+    const mailOption= transporter.sendMail({
         from:process.env.EMAIL_ID,
         to:user.email,
         subject:"Hi this is verification process!!!",
