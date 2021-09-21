@@ -18,7 +18,7 @@ router.post('/userSignup',async (req,res)=>{
         });
         const data=await user.save();
 ///////////////////////////////////////////////------------token-------------------------///////////////////////
-        const token=await jwt.sign({userId:data._id},process.env.SECRETE_KEY)
+        const token=jwt.sign({userId:data._id},process.env.SECRETE_KEY)
 ///////////////////////-token-------////////////////////////////////////////////////////////////////////////////       
     const transporter=nodemailer.createTransport({
         host:"smtp.gmail.com",
