@@ -8,14 +8,6 @@ const auth=require('../../../library/auth')
 
 router.post('/userSignup',async (req,res)=>{
     try {
-        const emailAddress=req.body.email;
-        const emailVerify=await userModel.findOne({email:emailAddress})
-        // if(emailVerify){
-        //     if(!emailVerify.verified){
-        //         return res.status(400).json("This Email Address Account has been already created but not Verified go and Check")
-        //     }
-        //     return res.status(400).json('This Email Address already created')
-        // }
         const pass= await bcrypt.hash(req.body.newPassword,10)
         req.body.newPassword=pass;
         const user=await userModel({
@@ -32,7 +24,7 @@ router.post('/userSignup',async (req,res)=>{
         host:"smtp.gmail.com",
         port:587,
         service:'gmail',
-        secure:true,
+        secure:false,
         auth:{
             user:process.env.EMAIL_ID,
             pass:process.env.EMAIL_PASS
