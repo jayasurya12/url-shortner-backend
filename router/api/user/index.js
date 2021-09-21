@@ -26,8 +26,8 @@ const transporter=await nodemailer.createTransport({
     service:'gmail',
     secure:true,
     auth:{
-        user:process.env.EMAIL_ID,
-        pass:process.env.EMAIL_PASS
+        user:'jai12vj@gmail.com',
+        pass:'27121998Vj'
     },
     tls: {
         // do not fail on invalid certs
@@ -36,7 +36,7 @@ const transporter=await nodemailer.createTransport({
 })
     const mailOption=
         {
-        from:process.env.EMAIL_ID,
+        from:'jai12vj@gmail.com',
         to:req.body.email,
         subject:"Hi this is verification process!!!",
         html:`
