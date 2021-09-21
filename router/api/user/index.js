@@ -47,7 +47,7 @@ router.post('/userSignup',async (req,res)=>{
             subject:"Hi this is verification process!!!",
             html:`<div>
                 <h3>Hi this is url-shortner account created  verify link is below</h3>
-                <a href='http://localhost:3000/verify/${token}'>click here</a>
+                <a href='https://objective-hypatia-83dede.netlify.app/verify/${token}'>click here</a>
             </div>`        
         },(err,data)=>{
             if(err){
