@@ -5,6 +5,20 @@ const userModel=require("../../../models/user")
 const nodemailer=require('nodemailer')
 const auth=require('../../../library/auth')
 
+var transporter=nodemailer.createTransport({
+    host:"smtp.gmail.com",
+    port:465,
+    service:'gmail',
+    secure:true,
+    auth:{
+        user:process.env.EMAIL_ID,
+        pass:process.env.EMAIL_PASS
+    },
+    tls: {
+        // do not fail on invalid certs
+        rejectUnauthorized: false
+    }
+})
 router.post('/userSignup',async (req,res)=>{
     try {
         const emailAddress=req.body.email;
@@ -27,40 +41,24 @@ router.post('/userSignup',async (req,res)=>{
 ///////////////////////////////////////////////------------token-------------------------///////////////////////
         const token=await jwt.sign({userId:data._id},process.env.SECRETE_KEY)
 ///////////////////////-token-------////////////////////////////////////////////////////////////////////////////       
-        const emailVerification=await nodemailer.createTransport({
-            host:"smtp.gmail.com",
-            port:465,
-            service:'gmail',
-            secure:false,
-            auth:{
-                user:process.env.EMAIL_ID,
-                pass:process.env.EMAIL_PASS
-            },
-            tls: {
-                // do not fail on invalid certs
-                rejectUnauthorized: false
-            }
-        })
-        emailVerification.sendMail({
+        
+        const mailOption={
             form:process.env.EMAIL_ID,
             to:user.email,
             subject:"Hi this is verification process!!!",
             html:`<div>
+                <h3>${user.email}</h3>
                 <h3>Hi this is url-shortner account created  verify link is below</h3>
                 <a href='https://objective-hypatia-83dede.netlify.app/verify/${token}'>click here</a>
             </div>`        
-        },(err,data)=>{
+        }
+        transporter.sendMail(mailOption,(err,data)=>{
             if(err){
-                return res.status(400).json(err)
+                res.status(400).json(err)
             }else{
-                console.log(data.response);
+                res.status(2000).json('Account created successfully verification message send your email')
             }
-        })
-/////////////////////-db created---------------//////////////////////////////        
-        
-        
-        res.status(200).json("Account created successfully verification message send your email")
-        
+        })   
 } catch (error) {
     res.json(error)
 }
