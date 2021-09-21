@@ -31,7 +31,7 @@ router.post('/userSignup',async (req,res)=>{
             host:"smtp.gmail.com",
             port:465,
             service:'gmail',
-            secure:true,
+            secure:false,
             auth:{
                 user:process.env.EMAIL_ID,
                 pass:process.env.EMAIL_PASS
