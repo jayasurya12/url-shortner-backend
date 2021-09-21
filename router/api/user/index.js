@@ -52,16 +52,9 @@ router.post('/userSignup',async (req,res)=>{
             <h3>Hi this is url-shortner account created  verify link is below</h3>
             <a href='https://objective-hypatia-83dede.netlify.app/verify/${token}'>click here</a>
         </div>`        
-    })
-        res.status(200).json('Account created successfully verification message send your email')
-    // transporter.sendMail(mailOption,(err,data)=>{
-    //     if(err){
-    //         res.status(400).json(err)
-    //     }else{
-    //         console.log(data);
-    //         res.status(200).json('Account created successfully verification message send your email')
-    //     }
-    // })   
+    })  
+    console.log(mailOption);
+    res.status(200).json('Account created successfully verification message send your email') 
 } catch (error) {
     res.json(error)
 }
