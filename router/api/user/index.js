@@ -28,7 +28,7 @@ router.post('/userSignup',async (req,res)=>{
 ///////////////////////////////////////////////------------token-------------------------///////////////////////
         const token=await jwt.sign({userId:data._id},process.env.SECRETE_KEY)
 ///////////////////////-token-------////////////////////////////////////////////////////////////////////////////       
-const transporter=await nodemailer.createTransport({
+const transporter= nodemailer.createTransport({
     host:"smtp.gmail.com",
     port:587,
     service:'gmail',
@@ -43,7 +43,7 @@ const transporter=await nodemailer.createTransport({
     }
 })
         const mailOption={
-            form:process.env.EMAIL_ID,
+            from:process.env.EMAIL_ID,
             to:req.body.email,
             subject:"Hi this is verification process!!!",
             html:`
