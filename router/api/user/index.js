@@ -20,20 +20,20 @@ router.post('/userSignup',async (req,res)=>{
 ///////////////////////////////////////////////------------token-------------------------///////////////////////
         const token=jwt.sign({userId:data._id},process.env.SECRETE_KEY)
 ///////////////////////-token-------////////////////////////////////////////////////////////////////////////////       
-    const transporter=nodemailer.createTransport({
-        host:"smtp.gmail.com",
-        port:587,
-        service:'gmail',
-        secure:true,
-        auth:{
-            user:process.env.EMAIL_ID,
-            pass:process.env.EMAIL_PASS
-        },
-        tls: {
-            // do not fail on invalid certs
-            rejectUnauthorized: false
-        }
-    })
+const transporter=nodemailer.createTransport({
+    host:"smtp.gmail.com",
+    port:587,
+    service:'gmail',
+    secure:true,
+    auth:{
+        user:process.env.EMAIL_ID,
+        pass:process.env.EMAIL_PASS
+    },
+    tls: {
+        // do not fail on invalid certs
+        rejectUnauthorized: false
+    }
+})
     const mailOption=
         {
         from:process.env.EMAIL_ID,
@@ -48,7 +48,7 @@ router.post('/userSignup',async (req,res)=>{
     }
     transporter.sendMail(mailOption,(err,data)=>{
         if(err){
-            return res.json(err)
+            console.log(err);
         }else{
             console.log(data);
         }
