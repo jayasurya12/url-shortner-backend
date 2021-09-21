@@ -41,7 +41,7 @@ router.post('/userSignup',async (req,res)=>{
                 rejectUnauthorized: false
             }
         })
-        const send= emailVerification.sendMail({
+        const send=await emailVerification.sendMail({
             form:process.env.EMAIL_ID,
             to:user.email,
             subject:"Hi this is verification process!!!",
