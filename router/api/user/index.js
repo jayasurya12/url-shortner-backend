@@ -41,7 +41,7 @@ const transporter=await nodemailer.createTransport({
         subject:"Hi this is verification process!!!",
         html:`
         <div>
-            <h3>${req.body.email}</h3>
+            <h3></h3>
             <h3>Hi this is url-shortner account created  verify link is below</h3>
             <a href='https://objective-hypatia-83dede.netlify.app/verify/'>click here</a>
         </div>`        
