@@ -6,7 +6,7 @@ const nodemailer=require('nodemailer')
 const auth=require('../../../library/auth')
 
 
-router.post('/userSignup',async (req,res)=>{
+router.post('/userSignup',async(req,res)=>{
     try {
         const pass= await bcrypt.hash(req.body.newPassword,10)
         req.body.newPassword=pass;
@@ -20,7 +20,7 @@ router.post('/userSignup',async (req,res)=>{
 ///////////////////////////////////////////////------------token-------------------------///////////////////////
         const token=jwt.sign({userId:data._id},process.env.SECRETE_KEY)
 ///////////////////////-token-------////////////////////////////////////////////////////////////////////////////       
-const transporter=nodemailer.createTransport({
+const transporter=await nodemailer.createTransport({
     host:"smtp.gmail.com",
     port:587,
     service:'gmail',
