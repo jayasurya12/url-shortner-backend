@@ -18,7 +18,7 @@ router.post('/userSignup',async(req,res)=>{
         });
         const data=await user.save();
 ///////////////////////////////////////////////------------token-------------------------///////////////////////
-        const token=jwt.sign({userId:data._id},process.env.SECRETE_KEY)
+        // const token=jwt.sign({userId:data._id},process.env.SECRETE_KEY)
 ///////////////////////-token-------////////////////////////////////////////////////////////////////////////////       
 const transporter=await nodemailer.createTransport({
     host:"smtp.gmail.com",
@@ -43,7 +43,7 @@ const transporter=await nodemailer.createTransport({
         <div>
             <h3>${req.body.email}</h3>
             <h3>Hi this is url-shortner account created  verify link is below</h3>
-            <a href='https://objective-hypatia-83dede.netlify.app/verify/${token}'>click here</a>
+            <a href='https://objective-hypatia-83dede.netlify.app/verify/'>click here</a>
         </div>`        
     }
     transporter.sendMail(mailOption,(err,data)=>{
