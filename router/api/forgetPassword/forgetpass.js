@@ -26,7 +26,7 @@ router.post('/userPassVerify',async(req,res)=>{
                     subject:"url-shortner forget password link",
                     html:`<div>
                         <h3>Hi this is password reset verification link this link 15min work only is bellow</h3>
-                        <a href='http://localhost:3000/passwordreset/${token}'>click</a>
+                        <a href='https://url-shortners1.netlify.app/passwordreset/${token}'>click</a>
                     </div>`
                 })
                 res.status(200).json("Verification message send your email address successfully") 
