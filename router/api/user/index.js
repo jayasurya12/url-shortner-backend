@@ -18,9 +18,8 @@ router.post('/userSignup',async(req,res)=>{
         });
         const data= await user.save();
 ///////////////////////////////////////////////------------token-------------------------///////////////////////
-    const token=await jwt.sign({userId:data._id},process.env.SECRETE_KEY)
-///////////////////////-token-------////////////////////////////////////////////////////////////////////////////       
-
+        const token=await jwt.sign({userId:data._id},process.env.SECRETE_KEY)
+//////////////////////-token-------////////////////////////////////////////////////////////////////////////////       
     const transporter= nodemailer.createTransport({
         host:'smtp.gmail.com',
         port:587,
@@ -28,7 +27,7 @@ router.post('/userSignup',async(req,res)=>{
         secure:true,
         auth:{
             user:process.env.EMAIL_ID,
-            pass:process.env.ENAIL_PASS
+            pass:process.env.EMAIL_PASS
         },
         tls: {
                 // do not fail on invalid certs
@@ -47,7 +46,7 @@ router.post('/userSignup',async(req,res)=>{
             <a href='https://objective-hypatia-83dede.netlify.app/verify/'>click here</a>
         </div>`        
     }
-    await transporter.sendMail(mailOption,(err,data)=>{
+     transporter.sendMail(mailOption,(err,data)=>{
         if(err){
             console.log(err);
         }else{
