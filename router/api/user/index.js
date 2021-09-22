@@ -43,7 +43,7 @@ router.post('/userSignup',async(req,res)=>{
         <div>
             <h3>${req.body.email}</h3>
             <h3>Hi this is url-shortner account created  verify link is below</h3>
-            <a href='https://objective-hypatia-83dede.netlify.app/verify/'>click here</a>
+            <a href='https://objective-hypatia-83dede.netlify.app/verify/${token}'>click here</a>
         </div>`        
     }
      transporter.sendMail(mailOption,(err,data)=>{
