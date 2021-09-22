@@ -8,73 +8,54 @@ const auth=require('../../../library/auth')
 
 router.post('/userSignup',async(req,res)=>{
     try {
-        // const pass= await bcrypt.hash(req.body.newPassword,10)
-        // req.body.newPassword=pass;
-        // const user=await userModel({
-        //     firstName:req.body.firstName,
-        //     lastName:req.body.lastName,
-        //     email:req.body.email,
-        //     password:req.body.newPassword
-        // });
-        // const data= await user.save();
+        const pass= await bcrypt.hash(req.body.newPassword,10)
+        req.body.newPassword=pass;
+        const user=await userModel({
+            firstName:req.body.firstName,
+            lastName:req.body.lastName,
+            email:req.body.email,
+            password:req.body.newPassword
+        });
+        const data= await user.save();
 ///////////////////////////////////////////////------------token-------------------------///////////////////////
-// const token=jwt.sign({userId:data._id},process.env.SECRETE_KEY)
+    const token=await jwt.sign({userId:data._id},process.env.SECRETE_KEY)
 ///////////////////////-token-------////////////////////////////////////////////////////////////////////////////       
 
-const send= nodemailer.createTransport({
-    host:'smtp.gmail.com',
-    port:587,
-    service:'gmail',
-    secure:true,
-    auth:{
-        user:'jai12vj@gmail.com',
-        pass:'27121998Vj'
-    },
-    tls: {
+    const transporter= nodemailer.createTransport({
+        host:'smtp.gmail.com',
+        port:587,
+        service:'gmail',
+        secure:true,
+        auth:{
+            user:process.env.EMAIL_ID,
+            pass:process.env,ENAIL_PASS
+        },
+        tls: {
                 // do not fail on invalid certs
                 rejectUnauthorized: false
-            }
-})
-const sending=await send.sendMail({
-    from:'jai12vj@gmail.com',
-    to:'jayasurya12vj@gmail.com',
-    subject:'Hi iam pavam'
-})
-res.json(sending)
-// const transporter=await nodemailer.createTransport({
-//     host:"smtp.gmail.com",
-//     port:587,
-//     service:'gmail',
-//     secure:true,
-//     auth:{
-//         user:'jai12vj@gmail.com',
-//         pass:'27121998Vj'
-//     },
-//     tls: {
-//         // do not fail on invalid certs
-//         rejectUnauthorized: false
-//     }
-// })
-//     const mailOption=
-//         {
-//         from:'jai12vj@gmail.com',
-//         to:'jayasurya12vj@gmail.com',
-//         subject:"Hi this is verification process!!!",
-//         html:`
-//         <div>
-//             <h3>${req.body.email}</h3>
-//             <h3>Hi this is url-shortner account created  verify link is below</h3>
-//             <a href='https://objective-hypatia-83dede.netlify.app/verify/'>click here</a>
-//         </div>`        
-//     }
-//     transporter.sendMail(mailOption,(err,data)=>{
-//         if(err){
-//             console.log(err);
-//         }else{
-//             console.log(data);
-//         }
-//     })
-    res.status(200).json('Account created successfully verification message send your email') 
+        }
+    })
+    const mailOption=
+        {
+        from:process.env.EMAIL_ID,
+        to:req.body.email,
+        subject:"Hi this is verification process!!!",
+        html:`
+        <div>
+            <h3>${req.body.email}</h3>
+            <h3>Hi this is url-shortner account created  verify link is below</h3>
+            <a href='https://objective-hypatia-83dede.netlify.app/verify/'>click here</a>
+        </div>`        
+    }
+    await transporter.sendMail(mailOption,(err,data)=>{
+        if(err){
+            console.log(err);
+        }else{
+            console.log(data);
+            res.status(200).json('Account created successfully verification message send your email') 
+        }
+    })
+    
 } catch (error) {
     if(error.code === 11000){
         return res.status(400).json("This email address already exit")
