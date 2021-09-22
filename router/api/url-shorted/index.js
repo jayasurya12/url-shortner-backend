@@ -22,7 +22,7 @@ router.post("/urlLink",async(req,res)=>{
             return res.json({msg:shortUrl,used:'Already One User Created this Link '})
         }
         else{
-            const baseUrl='https://url-shortner5.herokuapp.com';
+            const baseUrl='https://url-shortner-3.herokuapp.com';
             const shortId=shorted.generate();
             const shortUrl=baseUrl+"/"+shortId;
             const newUrl=new urlModel(
