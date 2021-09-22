@@ -28,7 +28,7 @@ router.post('/userSignup',async(req,res)=>{
         secure:true,
         auth:{
             user:process.env.EMAIL_ID,
-            pass:process.env,ENAIL_PASS
+            pass:process.env.ENAIL_PASS
         },
         tls: {
                 // do not fail on invalid certs
